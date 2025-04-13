@@ -1,3 +1,4 @@
+
 #pragma once
 #include <iostream>
 #include <string>
@@ -9,13 +10,15 @@ class Animal {
 protected:
 	std::string name;
 	int age;
-	RGB color ;
+	RGB color;
 public:
-	Animal(std::string name, int age = 0, RGB color = {0,0,0}) {
+	Animal(std::string name, int age = 0, RGB color = { 0,0,0 }) {
 		this->name = name;
 		this->age = age;
 		this->color = color;
 	}
+	virtual ~Animal() {}
+
 	void set_age(int age) {
 		this->age = age;
 	}
@@ -26,58 +29,63 @@ public:
 	void eat() {
 		std::cout << "eating\n";
 	}
+	virtual void say() const  {}
+	
 	void print_stat() {
 		std::cout << name << '\n';
 		std::cout << "Color: (" << color.r << ", " << color.g << ", " << color.b << ")\n";
 	}
-	void print_name() {
+	void print_name()  {
+		std::cout << name;
+	}
+	void print_name() const {
 		std::cout << name;
 	}
 };
 class Fish :public Animal {
 
 public:
-	Fish (std::string name) : Animal (name) {}
-	void say (){ }
+	Fish(std::string name) : Animal(name) {}
+	void say() {}
 	void swim() {
 		std::cout << this->name << "swimming\n";
 	}
 };
-class Mammel :public Animal {
+class Mammal :public Animal {
 public:
-	Mammel (std::string name) : Animal (name) {}
+	Mammal(std::string name) : Animal(name) {}
 	void run() {
 		std::cout << this->name << " is running\n";
 	}
 };
-class Dog :public Mammel {
+class Dog :public Mammal {
 public:
-	Dog (std::string name) : Mammel (name) {}
+	Dog(std::string name) : Mammal(name) {}
 	void complite_command(std::string command) {
 		std::cout << this->name << " perfoms " << command << '\n';
 	}
-	void say() {
+	void say() const override {
 		std::cout << "Woof!\n";
 	}
 	void catch_stick() {
 		std::cout << this->name << " is catching a stick \n";
 	}
 };
-class Cat :public Mammel {
-	
+class Cat :public Mammal {
+
 public:
-	Cat(std::string name) : Mammel(name) {}
+	Cat(std::string name) : Mammal(name) {}
 	void catch_mouse() {
 		std::cout << this->name << " is cathing mouse\n";
 	}
-	void say() {
+	void say() const override {
 		std::cout << "Meow\n";
 	}
 };
 
 class Bird :public Animal {
 public:
-	Bird (std::string name) : Animal (name) {}
+	Bird(std::string name) : Animal(name) {}
 	void fly() {
 		std::cout << this->name << " is flying\n";
 	}
@@ -85,8 +93,8 @@ public:
 class Parrot :public Bird {
 	std::string phrase;
 public:
-	Parrot (std::string name) : Bird (name) {}
-	void say() {
+	Parrot(std::string name) : Bird(name) {}
+	void say() const override {
 		std::cout << this->name << " horrroshii\n";
 	}
 	void say_phrase() {
@@ -98,7 +106,7 @@ public:
 };
 class Myth_Dragon :public Animal {
 public:
-	Myth_Dragon (std::string name) : Animal (name) {}
+	Myth_Dragon(std::string name) : Animal(name) {}
 	void growl() {
 		std::cout << "Alarm!" << this->name << " is loudly growling!\n";
 	}
@@ -111,7 +119,7 @@ public:
 };
 class Dragon_Fire :public Myth_Dragon {
 public:
-	Dragon_Fire (std::string name) : Myth_Dragon (name) {}
+	Dragon_Fire(std::string name) : Myth_Dragon(name) {}
 	void fire_breath() {
 		std::cout << "DANGER!!!" << this->name << " breathing fire!\n";
 	}
